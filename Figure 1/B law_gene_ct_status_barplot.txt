@@ -1,0 +1,10 @@
+ND	T2D
+Acinar	30	17
+Alpha	188	113
+Beta	192	122
+Delta	25	9
+Ductal	37	47
+Endothelial	6	8
+Multiple	50	38
+PP	34	10
+Stellate	17	29
