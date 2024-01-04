@@ -18,14 +18,14 @@ library(dplyr)
 #law_sc_gene_endo
 #law_endo_meta
 #law_endo_filter
-law_psi_junc=read.csv('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/raw_dataset/psi_junc_sc_data.csv')
+law_psi_junc=read.csv('/sc_as/lawlor.1050/raw_dataset/psi_junc_sc_data.csv')
 dim(law_psi_junc)
-a=read.table('/media/user/sdf/temp_wj/sc-AS/diab_pancr/Lawlor.Genom.Res.2016/count_AS_m4/SRR3617192/cass.count.txt', 
+a=read.table('/sc-AS/diab_pancr/Lawlor.Genom.Res.2016/count_AS_m4/SRR3617192/cass.count.txt', 
              header = F,sep = '\t')
 rownames(law_psi_junc)=a$V4
 law_psi_junc[1:4,1:4]
 dim(law_psi_junc)
-law_sc_gene_endo=readRDS('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/gene_sce/gene_endo_sce/law_sc_gene_endo.rds')
+law_sc_gene_endo=readRDS('/sc_as/lawlor.1050/gene_sce/gene_endo_sce/law_sc_gene_endo.rds')
 head(colnames(law_sc_gene_endo))
 law_psi_junc_endo=law_psi_junc[,colnames(law_psi_junc)%in%colnames(law_sc_gene_endo)]
 write.csv(law_psi_junc_endo,file = 'law_psi_junc_endo.csv',quote = F)
@@ -33,7 +33,7 @@ hist(apply(law_psi_junc_endo,1,function(x) ncol(law_psi_junc_endo)-sum(is.na(x))
      breaks=100)
 
 law_endo_meta=law_sc_gene_endo@meta.data
-law_endo_filter=read.table('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/diff_result/BetaTvN.diff.txt',
+law_endo_filter=read.table('/sc_as/lawlor.1050/diff/diff_result/BetaTvN.diff.txt',
                            sep = '\t',header = T)[,1:7]
 table(law_endo_meta$celltype)
 
@@ -396,7 +396,7 @@ PlotPSI(
   tran_id="chr4:84378062:84378111:+@chr4:84379499:84379582:+@chr4:84380893:84380950",
   event.type="SE",
   strand="positive",
-  Bam="/media/user/sdg/WShi/AS/lawlor/marvel/bam/",
+  Bam="/AS/lawlor/marvel/bam/",
   BamPheno=BamPheno,
   cell.types=c( 'Alpha','Beta','Multiple','Delta','PP'),
   min.coverage=10,
@@ -407,7 +407,7 @@ PlotPSI(
   plot.title="MRPS18C",
   plot.width=5,
   plot.height=8,
-  plot.out="/media/user/sdg/WShi/AS/lawlor/VALERIE/figure/MRPS18C_ct.pdf"
+  plot.out="/AS/lawlor/VALERIE/figure/MRPS18C_ct.pdf"
 )
 
 # panel G, I --------------------------------------------------------------

@@ -74,7 +74,7 @@ ggsave(file='/lawlor/miloR/lawlor_endo_as_miloR_FDR1_d20.pdf',
 
 
 # panel D -----------------------------------------------------------------
-law_beta_1to4=readRDS('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/law_sc_gene_beta_cl1to4.rds')
+law_beta_1to4=readRDS('/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/law_sc_gene_beta_cl1to4.rds')
 
 gene_marker=FindAllMarkers(law_beta_1to4,group.by = 'new_as_cluster')
 ENTREZID=bitr(gene_marker$gene,fromType = 'SYMBOL',
@@ -82,7 +82,7 @@ ENTREZID=bitr(gene_marker$gene,fromType = 'SYMBOL',
 colnames(ENTREZID)[1]='gene'
 gene_marker=left_join(gene_marker,ENTREZID)
 write.table(gene_marker, 
-            "/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/supp_data/R3_Q12/beta_c1to4_gene_marker.txt",            
+            "/sc_as/lawlor.1050/supp_data/R3_Q12/beta_c1to4_gene_marker.txt",            
             row.names=FALSE,col.names=TRUE,sep="\t")
 
 top5 <- gene_marker %>% group_by(cluster) %>% top_n(n = 5, wt = avg_log2FC)
@@ -94,7 +94,7 @@ DotPlot(law_beta_1to4,features =top5$gene ,
         group.by = 'new_as_cluster')+
   theme(axis.text.x = element_text (angle = 45,vjust = 0.5#,hjust = 0.7
   ))
-ggsave(filename = "/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/supp_data/R3_Q12/all_top5markers_dotplot.pdf",
+ggsave(filename = "/sc_as/lawlor.1050/supp_data/R3_Q12/all_top5markers_dotplot.pdf",
        width =6,height = 3)
 
 
@@ -204,27 +204,27 @@ dev.off()
 library(Seurat)
 library(ggplot2)
 library(RColorBrewer)
-ss_obj<-readRDS('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/data/law_c1to4.rds')
+ss_obj<-readRDS('/sc_as/lawlor.1050/diff/endo_diff_cluster/data/law_c1to4.rds')
 name<-as.data.frame( ss_obj@assays$RNA@counts)
-write.table(name,'/media/user/sdh/cmq_wj/others/c1_4_ND_T2D.counts2cytotarce.txt')
+write.table(name,'/c1_4_ND_T2D.counts2cytotarce.txt')
 # web
-cyto<-read.csv('/media/user/sdh/cmq_wj/others/CytoTRACE_results_c1_4.csv')
+cyto<-read.csv('/CytoTRACE_results_c1_4.csv')
 cyto_1<-as.data.frame(cyto[,2]) 
 rownames(cyto_1) <-cyto[,1]
 colnames(cyto_1)<-'CytoTRACE'
 ss_obj<-AddMetaData(ss_obj, cyto_1, col.name = NULL)
 FeaturePlot(ss_obj,features = 'MAFA',label = T,reduction ='new_as_cluster')
 
-AS<- readRDS('/media/user/sdh/cmq_wj/others/as_ND_T2D.RDS') 
+AS<- readRDS('/as_ND_T2D.RDS') 
 cell = AS@meta.data[AS@meta.data$new_as_cluster %in% c(1:4),]
 law_beta_1to4<-subset(AS,cells= rownames(cell) )
 law_beta_1to4<-AddMetaData(law_beta_1to4, cyto_1, col.name = NULL)
 Idents(law_beta_1to4)<-'new_as_cluster'
 FeaturePlot(law_beta_1to4,features = 'CytoTRACE',label = T,reduction ='as',
             cols=colorRampPalette(brewer.pal(11, "RdYlBu")[c(11:1)])(100))
-ggsave('/media/user/sdh/cmq_wj/others/c1_4_cytotrace_as.pdf',width = 3.6,height = 3)
+ggsave('/c1_4_cytotrace_as.pdf',width = 3.6,height = 3)
 
-saveRDS(law_beta_1to4,'/media/user/sdh/cmq_wj/others/c1_4_cytotrace_as.rds')
+saveRDS(law_beta_1to4,'/c1_4_cytotrace_as.rds')
 
 
 # panel I -----------------------------------------------------------------
@@ -266,13 +266,13 @@ for (i in 1:4){
   sub_group$group=ifelse(sub_group$new_as_cluster==i,'group1','group2')
   sub_group=sub_group[,c('Run','group')]
   sub_group=sub_group[order(sub_group$group),]
-  write.table(sub_group,file =paste0('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/diff_conf/endoc1to4_betaonly/onlybeta_c',
+  write.table(sub_group,file =paste0('/sc_as/lawlor.1050/diff/diff_conf/endoc1to4_betaonly/onlybeta_c',
                                      i,'.dataset.group.conf') ,
               sep='\t',row.names = F,col.names=F,quote = F)}
 
 ## volcano
 law_endo_filter
-law_beta_cl4_DE=read.table('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_c4_DE_dI0.1_ratio0.1.csv',
+law_beta_cl4_DE=read.table('/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_c4_DE_dI0.1_ratio0.1.csv',
                            sep = ',',header = T)
 id=str_split_fixed(law_beta_cl4_DE$gene,'//',2)
 colnames(id)=c('ensemble','symbol')
@@ -321,7 +321,7 @@ p <- ggplot(
                   #direction = 'y',
                   box.padding = unit(0.5, "lines"),aes(label = symbol) ,
                   point.padding = unit(0.2, "lines"), segment.color = "black", show.legend = FALSE )
-ggsave(p,filename = '/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/vol_law_as_c4_beta.pdf',
+ggsave(p,filename = '/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/vol_law_as_c4_beta.pdf',
        width=8,height=7)
 
 
@@ -338,7 +338,7 @@ law_beta_cl4_ego <- enrichGO(gene      =law_beta_cl4_as_id$ENTREZID ,
                              ont           = 'ALL' ,
                              readable      = TRUE)
 View(law_beta_cl4_ego@result)
-write.table(law_beta_cl4_ego@result,file = '/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_c4_up_DE_GO_result.txt',
+write.table(law_beta_cl4_ego@result,file = '/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_c4_up_DE_GO_result.txt',
             quote = F,row.names = F,sep = '\t')
 
 new_matrix=law_beta_cl4_ego@result[c(1,12,13,15,16,18,22,23,25,45),]
@@ -349,13 +349,13 @@ dotplot(new_beta_cl4_ego,showCategory=10)
 dotplot(law_beta_cl4_ego,showCategory = c(11:25))+
   scale_y_discrete(labels=function(x) str_wrap(x, width=60))+
   guides(colour=guide_colorbar(reverse = T))
-ggsave('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/betaonly_c4_DE_up_dotplot.pdf',width = 5.8,height = 3)
+ggsave('/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/betaonly_c4_DE_up_dotplot.pdf',width = 5.8,height = 3)
 
 
 # panel M -----------------------------------------------------------------
 
 for (i in 1:4){
-  law_onlybeta_c1_tvn_as=read.table(paste0('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/diff_result/endoc1to4_betaonly/onlybeta_c',
+  law_onlybeta_c1_tvn_as=read.table(paste0('/sc_as/lawlor.1050/diff/diff_result/endoc1to4_betaonly/onlybeta_c',
                                            i,'.diff.txt'),
                                     sep = '\t',header = T)
   id=str_split_fixed(law_onlybeta_c1_tvn_as$gene,'//',2)
@@ -368,13 +368,13 @@ for (i in 1:4){
   colnames(fmdata)[18:19]=paste0('law.',colnames(fmdata)[18:19])
   fmdata=subset(fmdata,fmdata[,18]>=0.1|
                   fmdata[,19]>=0.1)
-  write.csv(fmdata,file = paste0('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_c',
+  write.csv(fmdata,file = paste0('/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_c',
                                  i,'_DE_dI0.1_ratio0.1.csv'),quote = F,row.names = F)
   fmdata_up=fmdata[fmdata$dI_g1_vs_g2>=0.1,]
-  write.csv(fmdata_up,file = paste0('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_c',
+  write.csv(fmdata_up,file = paste0('/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_c',
                                     i,'_upDE_dI0.1_ratio0.1.csv'),quote = F,row.names = F)
   fmdata_down=fmdata[fmdata$dI_g1_vs_g2<=-0.1,]
-  write.csv(fmdata_down,file = paste0('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_c',
+  write.csv(fmdata_down,file = paste0('/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_c',
                                       i,'_downDE_dI0.1_ratio0.1.csv'),quote = F,row.names = F)
 }
 
@@ -398,7 +398,7 @@ site_func=function(multiple_DE,all_exon_id){
   multiple_DE_exon_site=exon_site[,c(12,11,15,16,13,14,17,18)]
   return(multiple_DE_exon_site)
 }
-exon_matrix=read.table('/media/user/sda/MyDoc/Quantas/index_annot/hg19/annotation/hg19.exon.trio.hmr.nr.bed',
+exon_matrix=read.table('/Quantas/index_annot/hg19/annotation/hg19.exon.trio.hmr.nr.bed',
                        sep = '\t')
 all_exon_id=str_split_fixed(exon_matrix$V4,'[.]',2)%>%as.data.frame()
 all_exon_id=str_split_fixed(all_exon_id$V1,'-',4)%>%as.data.frame()
@@ -410,24 +410,24 @@ all_exon_id$exon_m=paste0('EX-',all_exon_id$gene,'-',all_exon_id$exonstart,'-',a
 all_exon_id$exon_r=paste0('EX-',all_exon_id$gene,'-',all_exon_id$exonstart,'[')
 head(all_exon_id)
 for (i in 1:4){
-  endoc1_obup_DE=read.csv(paste0('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_c',
+  endoc1_obup_DE=read.csv(paste0('/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_c',
                                  i,'_upDE_dI0.1_ratio0.1.csv'),
                           header = T)
   endoc1_obup_DE=site_func(endoc1_obup_DE,all_exon_id)
-  write.table(endoc1_obup_DE,file = paste0('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/for_rMAPS/endo_onlybeta_c',
+  write.table(endoc1_obup_DE,file = paste0('/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/for_rMAPS/endo_onlybeta_c',
                                            i,'_up_DE_exon_site_for_rMAPS.txt'),
               sep = '\t',col.names = F,row.names = F,quote = F)
-  endoc1_obdown_DE=read.csv(paste0('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_c',
+  endoc1_obdown_DE=read.csv(paste0('/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_c',
                                    i,'_downDE_dI0.1_ratio0.1.csv'),
                             header = T)
   endoc1_obdown_DE=site_func(endoc1_obdown_DE,all_exon_id)
-  write.table(endoc1_obdown_DE,file = paste0('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/for_rMAPS/endo_onlybeta_c',
+  write.table(endoc1_obdown_DE,file = paste0('/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/for_rMAPS/endo_onlybeta_c',
                                              i,'_down_DE_exon_site_for_rMAPS.txt'),
               sep = '\t',col.names = F,row.names = F,quote = F)
 }
 
 # beta as cluster background exon
-law_onlybeta_c4_tvn_as=read.table(paste0('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/diff_result/endoc1to4_betaonly/onlybeta_c4.diff.txt'),
+law_onlybeta_c4_tvn_as=read.table(paste0('/sc_as/lawlor.1050/diff/diff_result/endoc1to4_betaonly/onlybeta_c4.diff.txt'),
                                   sep = '\t',header = T)
 id=str_split_fixed(law_onlybeta_c4_tvn_as$gene,'//',2)
 colnames(id)=c('ensemble','symbol')
@@ -435,13 +435,13 @@ law_onlybeta_c4_tvn_as=cbind(id,law_onlybeta_c4_tvn_as)
 law_backg_beta_as_cl=law_onlybeta_c4_tvn_as[law_onlybeta_c4_tvn_as$coverage>=20&
                                               abs(law_onlybeta_c4_tvn_as$dI_g1_vs_g2)<0.1
                                             ,c(1:17)]
-write.csv(law_backg_beta_as_cl,file = '/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_background.csv',
+write.csv(law_backg_beta_as_cl,file = '/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_background.csv',
           quote = F,row.names = F)
 
-backg_exon=read.csv('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_background.csv',
+backg_exon=read.csv('/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/endo_onlybeta_background.csv',
                     header = T)
 backg_exon_site=site_func(law_backg_beta_as_cl,all_exon_id)
-write.table(backg_exon_site,file = '/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/for_rMAPS/endo_onlybeta_background_exon_site_for_rMAPS.txt',
+write.table(backg_exon_site,file = '/sc_as/lawlor.1050/diff/endo_diff_cluster/endoc1to4_betaonly/data/for_rMAPS/endo_onlybeta_background_exon_site_for_rMAPS.txt',
             sep = '\t',col.names = F,row.names = F,quote = F)
 
 

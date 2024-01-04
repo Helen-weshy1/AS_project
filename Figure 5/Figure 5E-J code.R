@@ -5,8 +5,8 @@ library(Seurat)
 
 
 # panel E, F --------------------------------------------------------------
-law_beta_gene <- readRDS("E:/windows/AS/20220624sum/data/law_beta_gene.rds")
-xin_beta_gene<- readRDS("E:/windows/AS/20220624sum/data/xin_beta_gene.rds")
+law_beta_gene <- readRDS("/law_beta_gene.rds")
+xin_beta_gene<- readRDS("/xin_beta_gene.rds")
 
 
 plot.features=c('HNRNPH2',

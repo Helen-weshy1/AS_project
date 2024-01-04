@@ -92,7 +92,7 @@ write.table(beta_DE_exon_site,file = '/beta_diff/law_beta_DE_exon_site_for_rMAPS
             sep = '\t',col.names = F,row.names = F,quote = F)
 
 # beta overlap
-beta_DE=read.csv('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/beta_diff/overlap_beta_allDE_dI0.1_ratio0.1.csv',
+beta_DE=read.csv('/sc_as/lawlor.1050/diff/beta_diff/overlap_beta_allDE_dI0.1_ratio0.1.csv',
                  header = T)
 
 can_exon_name=str_split_fixed(beta_DE$name,'-',6)
@@ -125,7 +125,7 @@ exon_site=na.omit(exon_site)
 colnames(exon_site)[c(2,13:18)]=c('ensemble','firstFlankingExonStart','firstFlankingExonEnd','exonStart','exonEnd','secondFlankingExonStart','secondFlankingExonEnd')
 beta_DE_exon_site=exon_site[,c(12,11,15,16,13,14,17,18)]
 head(beta_DE_exon_site)
-write.table(beta_DE_exon_site,file = '/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/beta_diff/overlap_beta_DE_exon_site_for_rMAPS.txt',
+write.table(beta_DE_exon_site,file = '/sc_as/lawlor.1050/diff/beta_diff/overlap_beta_DE_exon_site_for_rMAPS.txt',
             sep = '\t',col.names = F,row.names = F,quote = F)
 
 
@@ -150,35 +150,35 @@ site_func=function(multiple_DE,all_exon_id){
   return(multiple_DE_exon_site)
 }
 
-alpha_up_DE=read.csv('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/alpha_diff/alpha_upDE_dI0.1_ratio0.1.csv',
+alpha_up_DE=read.csv('/sc_as/lawlor.1050/diff/alpha_diff/alpha_upDE_dI0.1_ratio0.1.csv',
                      header = T)
-alpha_down_DE=read.csv('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/alpha_diff/alpha_downDE_dI0.1_ratio0.1.csv',
+alpha_down_DE=read.csv('/sc_as/lawlor.1050/diff/alpha_diff/alpha_downDE_dI0.1_ratio0.1.csv',
                        header = T)
-beta_up_DE=read.csv('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/beta_diff/beta_upDE_dI0.1_ratio0.1.csv',
+beta_up_DE=read.csv('/sc_as/lawlor.1050/diff/beta_diff/beta_upDE_dI0.1_ratio0.1.csv',
                     header = T)
-beta_down_DE=read.csv('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/beta_diff/beta_downDE_dI0.1_ratio0.1.csv',
+beta_down_DE=read.csv('/sc_as/lawlor.1050/diff/beta_diff/beta_downDE_dI0.1_ratio0.1.csv',
                       header = T)
 alpha_up_DE_site=site_func(alpha_up_DE,all_exon_id)
 alpha_down_DE_site=site_func(alpha_down_DE,all_exon_id)
 beta_up_DE_site=site_func(beta_up_DE,all_exon_id)
 beta_down_DE_site=site_func(beta_down_DE,all_exon_id)
-write.table(alpha_up_DE_site,file = '/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/alpha_diff/law_alpha_up_DE_exon_site_for_rMAPS.txt',
+write.table(alpha_up_DE_site,file = '/sc_as/lawlor.1050/diff/alpha_diff/law_alpha_up_DE_exon_site_for_rMAPS.txt',
             sep = '\t',col.names = F,row.names = F,quote = F)
-write.table(alpha_down_DE_site,file = '/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/alpha_diff/law_alpha_down_DE_exon_site_for_rMAPS.txt',
+write.table(alpha_down_DE_site,file = '/sc_as/lawlor.1050/diff/alpha_diff/law_alpha_down_DE_exon_site_for_rMAPS.txt',
             sep = '\t',col.names = F,row.names = F,quote = F)
-write.table(beta_up_DE_site,file = '/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/beta_diff/law_beta_up_DE_exon_site_for_rMAPS.txt',
+write.table(beta_up_DE_site,file = '/sc_as/lawlor.1050/diff/beta_diff/law_beta_up_DE_exon_site_for_rMAPS.txt',
             sep = '\t',col.names = F,row.names = F,quote = F)
-write.table(beta_down_DE_site,file = '/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/beta_diff/law_beta_down_DE_exon_site_for_rMAPS.txt',
+write.table(beta_down_DE_site,file = '/sc_as/lawlor.1050/diff/beta_diff/law_beta_down_DE_exon_site_for_rMAPS.txt',
             sep = '\t',col.names = F,row.names = F,quote = F)
 
-backg_exon=read.csv('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/beta_diff/law_backg_beta.csv',
+backg_exon=read.csv('/sc_as/lawlor.1050/diff/beta_diff/law_backg_beta.csv',
                     header = T)
 backg_exon_site=site_func(backg_exon,all_exon_id)
-write.table(backg_exon_site,file = '/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/beta_diff/law_beta_background_exon_site_for_rMAPS.txt',
+write.table(backg_exon_site,file = '/sc_as/lawlor.1050/diff/beta_diff/law_beta_background_exon_site_for_rMAPS.txt',
             sep = '\t',col.names = F,row.names = F,quote = F)
 
 ### all exon site
-law_endo_c1_as=read.table(paste0('/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/diff_result/endo_as_cluster/endo_c',1,'.diff.txt'),
+law_endo_c1_as=read.table(paste0('/sc_as/lawlor.1050/diff/diff_result/endo_as_cluster/endo_c',1,'.diff.txt'),
                           sep = '\t',header = T)
 dim(law_endo_c1_as)
 can_exon_name=str_split_fixed(law_endo_c1_as$name,'-',6)%>%as.data.frame()
@@ -200,7 +200,7 @@ head(exon_site)
 colnames(exon_site)[c(2,14:19)]=c('ensemble','firstFlankingExonStart','firstFlankingExonEnd','exonStart','exonEnd','secondFlankingExonStart','secondFlankingExonEnd')
 all_exon_site=exon_site[,c(2,8,13,12,16,17,14,15,18,19)]
 head(all_exon_site)
-write.csv(all_exon_site,file = '/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/data/all_exon_site.csv',
+write.csv(all_exon_site,file = '/sc_as/lawlor.1050/diff/endo_diff_cluster/data/all_exon_site.csv',
           quote = F,row.names = F)
 
 can_exon_name=str_split_fixed(law_endo_c1_as$name,'-',6)%>%as.data.frame()
@@ -216,5 +216,5 @@ head(exon_m_site)
 colnames(exon_m_site)[c(2,13,14)]=c('ensemble','exonStart_alone','exonEnd_alone')
 all_exon_site=exon_m_site[,c(2,8,12,13,14)]
 head(all_exon_site)
-write.csv(all_exon_site,file = '/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/data/all_exon_site_single_exon.csv',
+write.csv(all_exon_site,file = '/sc_as/lawlor.1050/diff/endo_diff_cluster/data/all_exon_site_single_exon.csv',
           quote = F,row.names = F)

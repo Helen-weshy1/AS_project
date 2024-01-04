@@ -1,7 +1,5 @@
-.libPaths("/media/user/sdf/R.lib/library/wj/sc")
 library(Seurat)
 library(ggplot2)
-setwd('/media/user/sdh/cmq_wj/others/vlnplot')
 
 ss_obj<-readRDS('20GROUP_ND_T2D.rds')
 i=1

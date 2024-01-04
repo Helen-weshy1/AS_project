@@ -1,7 +1,5 @@
-.libPaths("/media/user/sdf/R.lib/library/wj/sc")
 library(Seurat)
 library(ggplot2)
-setwd('/media/user/sdh/cmq_wj/others/vlnplot')
 
 colors<-c("#8C564BFF" ,"#8C564BFF" ,"#9467BDFF","#9467BDFF",
           "#E377C2FF", "#E377C2FF", 
@@ -16,10 +14,10 @@ colors_2<-c("#8C564BFF" ,"#E377C2FF", "#C49C94FF", "#BCBD22FF", "#17BECFFF",
             "#1F77B4FF", "#FF7F0EFF", "#2CA02CFF" ,"#D62728FF", "#9467BDFF",
             "#8C564BFF" ,"#E377C2FF", "#C49C94FF", "#BCBD22FF", "#17BECFFF",
             "#1F77B4FF", "#FF7F0EFF", "#2CA02CFF" ,"#D62728FF", "#9467BDFF")
-ss_obj<-readRDS('/media/user/sdh/cmq_wj/others/as_ND_T2D.RDS')
+ss_obj<-readRDS('/as_ND_T2D.RDS')
 
-ND_OBJ <-readRDS("/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/data/law_sc_gene_endo_nd.rds")
-T2D_OBJ<-readRDS("/media/user/sdd/zhaolabguest/wsy/sc_as/lawlor.1050/diff/endo_diff_cluster/data/law_sc_gene_endo_t2d.rds")
+ND_OBJ <-readRDS("/law_sc_gene_endo_nd.rds")
+T2D_OBJ<-readRDS("/law_sc_gene_endo_t2d.rds")
 
 Idents(ND_OBJ)<-'new_as_cluster'
 Idents(T2D_OBJ)<-'new_as_cluster'
@@ -142,8 +140,7 @@ dev.off()
 #############              score
 # rm(list=ls())
 # setwd('/media/user/sdh/cmq_wj/others')
-.libPaths("/media/user/sdf/R.lib/library/wj/sc")
-source('/media/user/sdh/cmq_wj/others/vlnplot/MAP.R')
+source('/MAP.R')
 library(Seurat)
 library(ggplot2)
 ss_obj
@@ -154,9 +151,9 @@ for (group in c('ND','T2D')){
   ss_obj_SUB <- subset(ss_obj,cells = name1)
   
 tsne_result.ch<-data.frame(ss_obj_SUB@reductions[["as"]]@cell.embeddings); tsne_result.ch[1:8,]
-path<-dir('/media/user/sdh/cmq_wj/others/GO_GENE')
+path<-dir('/GO_GENE')
 for (i1 in path){
-  he<-read.table(paste0 ('/media/user/sdh/cmq_wj/others/GO_GENE/',i1))
+  he<-read.table(paste0 ('/GO_GENE/',i1))
   
   gene <- list(he[1,2:length(he[1,])])
   ss_obj_SUB <- AddModuleScore(  #对每个模块的基因集打分 
@@ -244,7 +241,7 @@ library(ggsci)
  name<-as.data.frame( ss_obj@assays$RNA@counts)
 kk_cluster <-(as.matrix( ss_obj@meta.data$vlnplot_group)) # kk_cluster是细胞分组信息
 
-source('/media/user/sdh/cmq_wj/others/vlnplot/violin_gene_exp_function_0.2_jitter.R')
+source('/violin_gene_exp_function_0.2_jitter.R')
 
 pdf('average_group_vio.pdf',width = 12,height = 5)
 for (i in 27:28){
