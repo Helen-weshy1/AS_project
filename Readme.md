@@ -26,7 +26,7 @@ Prerequisite programming languages and related software:
 
 ## **Data availability**
 ---
-Two single-cell sequencing FASTQ data produced by The Jackson Laboratory and Regeneron Pharmaceuticals were downloaded from NCBI Sequence Read Archive (SRA) under accession numbers SRP075970<font color='#FF0000'>**(ref.)**</font> and SRP075377<font color='#FF0000'>**(ref.)**</font>, respectively. Another scRNA-seq FASTQ data by Department of Genetics and Genome Sciences was downloaded from NCBI SRA under accession number GSE101207<font color='#FF0000'>**(ref.)**</font>.
+Two single-cell sequencing FASTQ data produced by The Jackson Laboratory and Regeneron Pharmaceuticals were downloaded from NCBI Sequence Read Archive (SRA) under accession numbers SRP075970 and SRP075377, respectively. Another scRNA-seq FASTQ data by Department of Genetics and Genome Sciences was downloaded from NCBI SRA under accession number GSE101207.
 
 ## **Data preprocessing**
 ---
@@ -69,7 +69,6 @@ perl /summarize_expression_wrapper.pl -big -c ../cache -exon /Quantas/index_anno
 ```
 
 Then created the seurat object with ./QUANTAS/Gene seuratobject.R
-<font color='#FF0000'>**加入处理好的sce储存链接**</font>
 
 
 ## **Downstream analysis**
